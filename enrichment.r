@@ -136,7 +136,7 @@ processGOtxt <- function(geneList,species,outDir){
 					if(nrow(df) < 20){out_df <- df[seq(1,nrow(df),1),]}else{out_df <- df[seq(1,20,1),]} 
 				}else{
 					#分组取每个组的top5
-					out_df = df  %>%filter(Pvalue <0.05) %>% group_by(Category) %>% top_n(5,List)
+					out_df <- df %>%  filter(Pvalue < 0.05) %>%  group_by(Category) %>% arrange(Category,  desc(List), Pvalue) %>% slice_head(n=5) %>%  ungroup()
           out_df = as.data.frame(out_df)
 				}
         PlotGo(out_df,outDir)
@@ -172,7 +172,7 @@ processGOdb<- function(geneList,species.org,outDir){
 					if(nrow(df) < 20){out_df <- df[seq(1,nrow(df),1),]}else{out_df <- df[seq(1,20,1),]} 
 				}else{
 					#分组取每个组的top5
-					out_df = df  %>%filter(Pvalue <0.05) %>% group_by(Category) %>% top_n(5,List)
+					out_df <- df %>%  filter(Pvalue < 0.05) %>%  group_by(Category) %>% arrange(Category,  desc(List), Pvalue) %>% slice_head(n=5) %>%  ungroup()
           out_df = as.data.frame(out_df)
 				}
         PlotGo(out_df,outDir)
