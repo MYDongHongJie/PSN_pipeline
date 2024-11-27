@@ -45,9 +45,14 @@ enrichment<-function(species,outDir,geneList){
 }
 
 PlotGo <- function(out_df,outDir){
-    if(!("Term" %in% colnames(out_df))){
-        colnames(out_df) <- c("GO","Term","Category","List","Total","Pvalue","adjustPvalue","Gene")
-    }
+  if( !"Term" %in% colnames(out_df)){
+		if(!"Category" %in% colnames(out_df)){
+			colnames(out_df) <- c("GO","Term","List","Total","Pvalue","adjustPvalue")
+		}else{
+			colnames(out_df) <- c("GO","Term","Category","List","Total","Pvalue","adjustPvalue")
+		}
+    #out_df$Category <- "None"
+  }
     ##删除Category为NA的数据
     out_df<-out_df[!is.na(out_df$Category),]
     out_df$Term=substring(out_df$Term,1,50)
